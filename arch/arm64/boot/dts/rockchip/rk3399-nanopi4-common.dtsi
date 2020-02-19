@@ -520,11 +520,11 @@
 };
 
 &vopl {
-	status = "okay";
+	status = "disabled";
 };
 
 &vopl_mmu {
-	status = "okay";
+	status = "disabled";
 };
 
 &vpu {
