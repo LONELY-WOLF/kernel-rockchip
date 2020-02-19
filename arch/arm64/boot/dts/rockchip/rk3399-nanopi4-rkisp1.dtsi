@@ -44,7 +44,7 @@
 		port {
 			ucam_out0a: endpoint {
 				remote-endpoint = <&mipi_in_ucam0a>;
-				data-lanes = <1 2>;
+				data-lanes = <1 2 3 4>;
 			};
 		};
 	};
@@ -65,7 +65,7 @@
 		port {
 			ucam_out0b: endpoint {
 				remote-endpoint = <&mipi_in_ucam0b>;
-				data-lanes = <1 2>;
+				data-lanes = <1 2 3 4>;
 			};
 		};
 	};
@@ -131,13 +131,13 @@
 			mipi_in_ucam0a: endpoint@0 {
 				reg = <0>;
 				remote-endpoint = <&ucam_out0a>;
-				data-lanes = <1 2>;
+				data-lanes = <1 2 3 4>;
 			};
 
 			mipi_in_ucam0b: endpoint@1 {
 				reg = <1>;
 				remote-endpoint = <&ucam_out0b>;
-				data-lanes = <1 2>;
+				data-lanes = <1 2 3 4>;
 			};
 
 			mipi_in_ucam0c: endpoint@2 {
@@ -178,7 +178,7 @@
 		port {
 			ucam_out1a: endpoint {
 				remote-endpoint = <&mipi_in_ucam1a>;
-				data-lanes = <1 2>;
+				data-lanes = <1 2 3 4>;
 			};
 		};
 	};
@@ -199,7 +199,7 @@
 		port {
 			ucam_out1b: endpoint {
 				remote-endpoint = <&mipi_in_ucam1b>;
-				data-lanes = <1 2>;
+				data-lanes = <1 2 3 4>;
 			};
 		};
 	};
@@ -240,13 +240,13 @@
 			mipi_in_ucam1a: endpoint@0 {
 				reg = <0>;
 				remote-endpoint = <&ucam_out1a>;
-				data-lanes = <1 2>;
+				data-lanes = <1 2 3 4>;
 			};
 
 			mipi_in_ucam1b: endpoint@1 {
 				reg = <1>;
 				remote-endpoint = <&ucam_out1b>;
-				data-lanes = <1 2>;
+				data-lanes = <1 2 3 4>;
 			};
 		};
 
