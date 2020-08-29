@@ -40,7 +40,10 @@
 		pinctrl-names = "rockchip,camera_default", "rockchip,camera_sleep";
 		pinctrl-0 = <&cam0_default_pins &cif_clkout_a>;
 		pinctrl-1 = <&cam0_default_pins>;
-
+        rockchip,camera-module-index = <0>;
+		rockchip,camera-module-facing = "front";
+		rockchip,camera-module-name = "MCAM-400";
+		rockchip,camera-module-lens-name = "MCAM-400";
 		port {
 			ucam_out0a: endpoint {
 				remote-endpoint = <&mipi_in_ucam0a>;
@@ -174,7 +177,10 @@
 		pinctrl-names = "rockchip,camera_default", "rockchip,camera_sleep";
 		pinctrl-0 = <&cam1_default_pins &cif_clkout_a>;
 		pinctrl-1 = <&cam1_default_pins>;
-
+        rockchip,camera-module-index = <1>;
+		rockchip,camera-module-facing = "front";
+		rockchip,camera-module-name = "MCAM-400";
+		rockchip,camera-module-lens-name = "MCAM-400";
 		port {
 			ucam_out1a: endpoint {
 				remote-endpoint = <&mipi_in_ucam1a>;
