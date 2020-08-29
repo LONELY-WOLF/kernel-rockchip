@@ -61,10 +61,14 @@
 #define OV4689_GAIN_STEP		1
 #define OV4689_GAIN_DEFAULT		0x80
 
+#define OV4689_HTS_60           0x0502
+#define OV4689_HTS_50           0x0600
+
 #define OV4689_REG_TEST_PATTERN		0x5040
 #define OV4689_TEST_PATTERN_ENABLE	0x80
 #define OV4689_TEST_PATTERN_DISABLE	0x0
 
+#define OV4689_REG_HTS			0x380c
 #define OV4689_REG_VTS			0x380e
 
 #define REG_NULL			0xFFFF
@@ -302,7 +306,7 @@ static const struct regval ov4689_2688x1520_regs[] = {
     {0x3809, 0x80},
     {0x380A, 0x05},
     {0x380B, 0xF0},
-    {0x380C, 0x05},
+    {0x380C, 0x05}, //HTS
     {0x380D, 0x02},
     {0x380E, 0x06},
     {0x380F, 0x1A},
@@ -1033,6 +1037,11 @@ static int ov4689_set_ctrl(struct v4l2_ctrl *ctrl)
 				       OV4689_REG_VALUE_08BIT,
 				       ctrl->val & OV4689_GAIN_L_MASK);
 		break;
+    case V4L2_CID_HBLANK:
+		ret = ov4689_write_reg(ov4689->client, OV4689_REG_HTS,
+				       OV4689_REG_VALUE_16BIT,
+				       ctrl->val + ov4689->cur_mode->width);
+        break;
 	case V4L2_CID_VBLANK:
 		ret = ov4689_write_reg(ov4689->client, OV4689_REG_VTS,
 				       OV4689_REG_VALUE_16BIT,
@@ -1081,10 +1090,8 @@ static int ov4689_initialize_controls(struct ov4689 *ov4689)
 			  0, OV4689_PIXEL_RATE, 1, OV4689_PIXEL_RATE);
 
 	h_blank = mode->hts_def - mode->width;
-	ov4689->hblank = v4l2_ctrl_new_std(handler, NULL, V4L2_CID_HBLANK,
-				h_blank, h_blank, 1, h_blank);
-	if (ov4689->hblank)
-		ov4689->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+	ov4689->hblank = v4l2_ctrl_new_std(handler, &ov4689_ctrl_ops, V4L2_CID_HBLANK,
+				OV4689_HTS_60 - mode->width, OV4689_HTS_50 - mode->width, OV4689_HTS_50 - OV4689_HTS_60, h_blank);
 
 	vblank_def = mode->vts_def - mode->height;
 	ov4689->vblank = v4l2_ctrl_new_std(handler, &ov4689_ctrl_ops,
