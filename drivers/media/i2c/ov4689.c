@@ -47,7 +47,7 @@
 #define OV4689_MODE_STREAMING		BIT(0)
 
 #define OV4689_REG_EXPOSURE		0x3500
-#define	OV4689_EXPOSURE_MIN		4
+#define	OV4689_EXPOSURE_MIN		938
 #define	OV4689_EXPOSURE_STEP		1
 #define OV4689_VTS_MAX			0x7fff
 
@@ -56,7 +56,7 @@
 #define OV4689_GAIN_H_MASK		0x07
 #define OV4689_GAIN_H_SHIFT		8
 #define OV4689_GAIN_L_MASK		0xff
-#define OV4689_GAIN_MIN			0x80
+#define OV4689_GAIN_MIN			0x10
 #define OV4689_GAIN_MAX			0x7f8
 #define OV4689_GAIN_STEP		1
 #define OV4689_GAIN_DEFAULT		0x80
@@ -565,7 +565,7 @@ static int ov4689_set_fmt(struct v4l2_subdev *sd,
 					 h_blank, 1, h_blank);
 		vblank_def = mode->vts_def - mode->height;
 		__v4l2_ctrl_modify_range(ov4689->vblank, vblank_def,
-					 OV4689_VTS_MAX - mode->height,
+					 vblank_def,
 					 1, vblank_def);
 	}
 
@@ -1089,7 +1089,7 @@ static int ov4689_initialize_controls(struct ov4689 *ov4689)
 	vblank_def = mode->vts_def - mode->height;
 	ov4689->vblank = v4l2_ctrl_new_std(handler, &ov4689_ctrl_ops,
 				V4L2_CID_VBLANK, vblank_def,
-				OV4689_VTS_MAX - mode->height,
+				vblank_def,
 				1, vblank_def);
 
 	exposure_max = mode->vts_def - 4;
